@@ -28,6 +28,11 @@ msg['From'] = f'{username}-Logs'
 msg['To'] = to
 msg['Subject'] = f'Logging-{username}: {current_time}'
 
+#with open('message.txt', 'r') as f:
+#    message = f.read()
+
+#msg.attach(MIMEText(message, 'plain'))
+
 filename = 'e:\src\log.txt'
 attachment = open(filename, 'rb')
 
