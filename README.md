@@ -39,5 +39,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+## Roadmap
+
+See the [open issues](https://github.com/ahmedhamedaly/Key-Logger-Injector/issues) for a list of proposed features (and known issues).
+
+
 ## License
 Distributed under the [MIT](https://github.com/ahmedhamedaly/Key-Logger-Injector/blob/master/LICENSE) License. See `LICENSE` for more information.
