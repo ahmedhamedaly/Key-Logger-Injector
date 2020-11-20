@@ -10,7 +10,7 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-with open('E:/src/password.txt', 'r') as f:
+with open('C:\Windows\Windowsx86\src\password.txt', 'r') as f:
     file = f.readlines()
     email = file[0]
     password = file[1]
