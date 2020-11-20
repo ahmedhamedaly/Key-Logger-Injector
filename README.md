@@ -1,4 +1,9 @@
 # Key Logger Injector
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ahmedhamedaly/Key-Logger-Injector?style=for-the-badge) 
+![APM](https://img.shields.io/apm/l/test?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/ahmedhamedaly/Key-Logger-Injector?style=for-the-badge)
+![GitHub followers](https://img.shields.io/github/followers/ahmedhamedaly?style=for-the-badge)
+
 A Simple Key Logger Injector That Sends You Frequent Emails About The Host Computers Logs.
 
 ## Getting Started
